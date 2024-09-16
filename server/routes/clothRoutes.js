@@ -9,9 +9,7 @@ router
     .patch(clothController.updateCloth)
     .delete(clothController.deleteCloth)
 router
-    .route('/cloth/:id')
+    .route('/cloth/:_id')
     .get(clothController.getClothById)
 
 module.exports = router
-
-

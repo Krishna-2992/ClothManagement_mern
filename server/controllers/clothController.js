@@ -11,11 +11,9 @@ exports.getClothes = async (req, res) => {
 
 exports.getClothById = async (req, res) => {
     try {
-      const {id} = req.params
-      console.log('inside getClothById with id: ', id)
-      const cloth = await ClothSchema.find({
-        id: id
-      })
+      const {_id} = req.params
+      console.log('inside getClothById with id: ', _id)
+      const cloth = await ClothSchema.find({_id})
       res.status(200).json({ success: true, data: cloth });
     } catch (error) {
       console.log('error') 
@@ -36,10 +34,10 @@ exports.createCloth = async (req, res) => {
 // Update cloth
 exports.updateCloth = async (req, res) => {
   try {
-    const { id, clothType, color, wearCount, photoUrl } = req.body;
+    const { _id, clothType, color, wearCount, photoUrl } = req.body;
 
     const updatedCloth = await ClothSchema.findByIdAndUpdate(
-      id,
+      _id,
       { $set: { clothType, color, wearCount, photoUrl } },
       { new: true }
     );
@@ -57,9 +55,9 @@ exports.updateCloth = async (req, res) => {
 // Delete cloth
 exports.deleteCloth = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { _id } = req.body;
 
-    const deletedCloth = await ClothSchema.findByIdAndDelete(id);
+    const deletedCloth = await ClothSchema.findByIdAndDelete(_id);
 
     if (!deletedCloth) {
       return res.status(404).json({ success: false, message: 'Cloth not found' });
